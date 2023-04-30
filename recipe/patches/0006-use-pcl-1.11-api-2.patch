@@ -1,0 +1,110 @@
+diff --git a/pcl/pxi/Visualization/Handler/PointCloudColorHandleringCustom.pxi b/pcl/pxi/Visualization/Handler/PointCloudColorHandleringCustom.pxi
+index e0afac7..96c2d4d 100644
+--- a/pcl/pxi/Visualization/Handler/PointCloudColorHandleringCustom.pxi
++++ b/pcl/pxi/Visualization/Handler/PointCloudColorHandleringCustom.pxi
+@@ -8,7 +8,6 @@ cimport numpy as cnp
+ 
+ 
+ cimport pcl_visualization_defs as pcl_vis
+-from boost_shared_ptr cimport sp_assign
+ 
+ cdef class PointCloudColorHandleringCustom:
+     """
+@@ -20,11 +19,11 @@ cdef class PointCloudColorHandleringCustom:
+ 
+     # void sp_assign[T](shared_ptr[T] &p, T *value)
+     def __cinit__(self, _pcl.PointCloud pc, int r, int g, int b):
+-        sp_assign(self.thisptr_shared, new pcl_vis.PointCloudColorHandlerCustom[cpp.PointXYZ](pc.thisptr_shared, r, g, b))
++        self.thisptr_shared.reset(new pcl_vis.PointCloudColorHandlerCustom[cpp.PointXYZ](pc.thisptr_shared, r, g, b))
+         pass
+ 
+     # def __cinit__(self, _pcl.RangeImages rangeImage, int r, int g, int b):
+-    #     sp_assign(self.thisptr_shared, new pcl_vis.PointCloudColorHandlerCustom[cpp.PointWithViewpoint](rangeImage.thisptr_shared, r, g, b))
++    #     self.thisptr_shared.reset(new pcl_vis.PointCloudColorHandlerCustom[cpp.PointWithViewpoint](rangeImage.thisptr_shared, r, g, b))
+     #     pass
+ 
+     def __dealloc__(self):
+diff --git a/pcl/pxi/Visualization/Handler/PointCloudColorHandleringGenericField.pxi b/pcl/pxi/Visualization/Handler/PointCloudColorHandleringGenericField.pxi
+index 3fc7623..95e5543 100644
+--- a/pcl/pxi/Visualization/Handler/PointCloudColorHandleringGenericField.pxi
++++ b/pcl/pxi/Visualization/Handler/PointCloudColorHandleringGenericField.pxi
+@@ -4,7 +4,6 @@ cimport pcl_defs as cpp
+ cimport numpy as cnp
+ 
+ cimport pcl_visualization_defs as pcl_vis
+-from boost_shared_ptr cimport sp_assign
+ 
+ cdef class PointCloudColorHandleringGenericField:
+     """
+diff --git a/pcl/pxi/Visualization/Handler/PointCloudColorHandleringHSVField.pxi b/pcl/pxi/Visualization/Handler/PointCloudColorHandleringHSVField.pxi
+index c1f94da..16354df 100644
+--- a/pcl/pxi/Visualization/Handler/PointCloudColorHandleringHSVField.pxi
++++ b/pcl/pxi/Visualization/Handler/PointCloudColorHandleringHSVField.pxi
+@@ -4,7 +4,6 @@ cimport pcl_defs as cpp
+ cimport numpy as cnp
+ 
+ cimport pcl_visualization_defs as pcl_vis
+-from boost_shared_ptr cimport sp_assign
+ 
+ cdef class PointCloudColorHandleringHSVField:
+     """
+diff --git a/pcl/pxi/Visualization/Handler/PointCloudColorHandleringRGBField.pxi b/pcl/pxi/Visualization/Handler/PointCloudColorHandleringRGBField.pxi
+index ccb5ce7..92aa9b3 100644
+--- a/pcl/pxi/Visualization/Handler/PointCloudColorHandleringRGBField.pxi
++++ b/pcl/pxi/Visualization/Handler/PointCloudColorHandleringRGBField.pxi
+@@ -4,7 +4,6 @@ cimport pcl_defs as cpp
+ cimport numpy as cnp
+ 
+ cimport pcl_visualization_defs as pcl_vis
+-from boost_shared_ptr cimport sp_assign
+ 
+ cdef class PointCloudColorHandleringRGBField:
+     """
+diff --git a/pcl/pxi/Visualization/Handler/PointCloudColorHandleringRandom.pxi b/pcl/pxi/Visualization/Handler/PointCloudColorHandleringRandom.pxi
+index 67cecc9..ce31da9 100644
+--- a/pcl/pxi/Visualization/Handler/PointCloudColorHandleringRandom.pxi
++++ b/pcl/pxi/Visualization/Handler/PointCloudColorHandleringRandom.pxi
+@@ -4,7 +4,6 @@ cimport pcl_defs as cpp
+ cimport numpy as cnp
+ 
+ cimport pcl_visualization_defs as pcl_vis
+-from boost_shared_ptr cimport sp_assign
+ 
+ cdef class PointCloudColorHandleringRandom:
+     """
+diff --git a/pcl/pxi/Visualization/Handler/PointCloudGeometryHandleringCustom.pxi b/pcl/pxi/Visualization/Handler/PointCloudGeometryHandleringCustom.pxi
+index 37265f0..036c616 100644
+--- a/pcl/pxi/Visualization/Handler/PointCloudGeometryHandleringCustom.pxi
++++ b/pcl/pxi/Visualization/Handler/PointCloudGeometryHandleringCustom.pxi
+@@ -4,7 +4,6 @@ cimport pcl_defs as cpp
+ cimport numpy as cnp
+ 
+ cimport pcl_visualization_defs as pcl_vis
+-from boost_shared_ptr cimport sp_assign
+ 
+ cdef class PointCloudGeometryHandlerCustom:
+     """
+diff --git a/pcl/pxi/Visualization/Handler/PointCloudGeometryHandleringSurfaceNormal.pxi b/pcl/pxi/Visualization/Handler/PointCloudGeometryHandleringSurfaceNormal.pxi
+index 51b4be2..feceeb5 100644
+--- a/pcl/pxi/Visualization/Handler/PointCloudGeometryHandleringSurfaceNormal.pxi
++++ b/pcl/pxi/Visualization/Handler/PointCloudGeometryHandleringSurfaceNormal.pxi
+@@ -4,7 +4,6 @@ cimport pcl_defs as cpp
+ cimport numpy as cnp
+ 
+ cimport pcl_visualization_defs as pcl_vis
+-from boost_shared_ptr cimport sp_assign
+ 
+ cdef class PointCloudGeometryHandleringSurfaceNormal:
+     """
+diff --git a/pcl/pxi/Visualization/Handler/PointCloudGeometryHandleringXYZ.pxi b/pcl/pxi/Visualization/Handler/PointCloudGeometryHandleringXYZ.pxi
+index 45ba5b1..e9ebf9f 100644
+--- a/pcl/pxi/Visualization/Handler/PointCloudGeometryHandleringXYZ.pxi
++++ b/pcl/pxi/Visualization/Handler/PointCloudGeometryHandleringXYZ.pxi
+@@ -4,7 +4,6 @@ cimport pcl_defs as cpp
+ cimport numpy as cnp
+ 
+ cimport pcl_visualization_defs as pcl_vis
+-from boost_shared_ptr cimport sp_assign
+ 
+ cdef class PointCloudGeometryHandleringXYZ:
+     """

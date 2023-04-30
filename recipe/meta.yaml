@@ -12,9 +12,11 @@ source:
     - patches/0001-Mark-PCLBase-as-nogil-to-fix-compilation.patch
     - patches/0002-Enable-visualization-module.patch
     - patches/0003-Remove-ConditionalRemoval-API-and-add-deprecation-no.patch
+    - patches/0003-Remove-ConditionalRemoval-API-and-add-deprecation-no-2.patch
     - patches/0004-Add-support-for-PCL-1.9.patch
     - patches/0005-add-support-for-pcl-1.10.patch
     - patches/0006-use-pcl-1.11-api.patch
+    - patches/0006-use-pcl-1.11-api-2.patch
     - patches/0007-support-for-pcl-1.12.patch
     - patches/0008-fix-deprecated-collections-import-since-.patch
     - patches/0009-update-for-vtk-9.1.patch
@@ -35,6 +37,10 @@ requirements:
     - cmake
     - make
     - pkgconfig
+    - python                                 # [build_platform != target_platform]
+    - cross-python_{{ target_platform }}     # [build_platform != target_platform]
+    - cython                                 # [build_platform != target_platform]
+    - numpy                                  # [build_platform != target_platform]
   host:
     - pcl
     - python
