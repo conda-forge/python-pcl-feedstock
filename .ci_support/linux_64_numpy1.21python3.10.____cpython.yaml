@@ -15,7 +15,7 @@ flann:
 numpy:
 - '1.21'
 pcl:
-- 1.13.0
+- 1.13.1
 pin_run_as_build:
   flann:
     max_pin: x.x.x
