@@ -49,6 +49,7 @@ requirements:
     - cython 0.29
     - pip
     - flann
+    - libcxx  # [osx]
   run:
     - python
     - cython
