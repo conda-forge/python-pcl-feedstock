@@ -42,6 +42,7 @@ requirements:
     - cython 0.29                            # [build_platform != target_platform]
     - numpy                                  # [build_platform != target_platform]
   host:
+    - libboost-devel
     - pcl
     - python
     - numpy
