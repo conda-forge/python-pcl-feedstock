@@ -28,7 +28,7 @@ source:
 
 build:
   script: {{ PYTHON }} -m pip install . -vv
-  number: 2
+  number: 3
   skip: True  # [win]
 
 requirements:
@@ -39,15 +39,17 @@ requirements:
     - pkgconfig
     - python                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-    - cython                                 # [build_platform != target_platform]
+    - cython 0.29                            # [build_platform != target_platform]
     - numpy                                  # [build_platform != target_platform]
   host:
+    - libboost-devel
     - pcl
     - python
     - numpy
-    - cython
+    - cython 0.29
     - pip
     - flann
+    - libcxx  # [osx]
   run:
     - python
     - cython
@@ -56,6 +58,9 @@ requirements:
     - pcl
     - flann
     - {{ pin_compatible('numpy') }}
+    # Necessary to constrain libcxx until conda-forge migrates to boost-1.81.
+    # https://github.com/conda-forge/graph-tool-feedstock/pull/97#issuecomment-1490453499
+    - {{ pin_compatible('libcxx', min_pin='x.x', max_pin='x.x') }}  # [osx]
 
 test:
   imports:
