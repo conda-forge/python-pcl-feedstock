@@ -1,3 +1,7 @@
+c_stdlib:
+- sysroot
+c_stdlib_version:
+- '2.17'
 cdt_name:
 - cos7
 channel_sources:
@@ -13,7 +17,7 @@ docker_image:
 flann:
 - 1.9.2
 libboost_devel:
-- '1.82'
+- '1.84'
 numpy:
 - '1.26'
 pcl:
@@ -29,5 +33,7 @@ python:
 target_platform:
 - linux-ppc64le
 zip_keys:
+- - c_stdlib_version
+  - cdt_name
 - - python
   - numpy
