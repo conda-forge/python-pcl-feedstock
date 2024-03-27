@@ -15,7 +15,7 @@ cxx_compiler_version:
 flann:
 - 1.9.2
 libboost_devel:
-- '1.82'
+- '1.84'
 macos_machine:
 - x86_64-apple-darwin13.4.0
 numpy:
