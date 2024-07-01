@@ -22,7 +22,7 @@ source:
     - patches/0009-update-for-vtk-9.1.patch
     - patches/0010-use-distutils-instead-of-setuptools-for-.patch
     - patches/0011-Support-PCL-1.13-and-later.patch
-    - patches/0012-update-for-vtk-9.2.patch
+    - patches/0012-update-for-vtk-9.3.patch
     - patches/0013-add-conda-prefix.patch
 
 
