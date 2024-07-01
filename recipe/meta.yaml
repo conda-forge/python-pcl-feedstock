@@ -28,7 +28,7 @@ source:
 
 build:
   script: {{ PYTHON }} -m pip install . -vv
-  number: 6
+  number: 7
   skip: True  # [win]
 
 requirements:
