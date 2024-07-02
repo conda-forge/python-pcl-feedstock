@@ -22,6 +22,7 @@ source:
     - patches/0010-use-distutils-instead-of-setuptools-for-.patch
     - patches/0011-Support-PCL-1.13-and-later.patch
     - patches/0013-add-conda-prefix.patch
+    - patches/0014-fix-numpy2.patch
 
 
 build:
