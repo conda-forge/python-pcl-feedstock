@@ -19,7 +19,7 @@ flann:
 libboost_devel:
 - '1.84'
 numpy:
-- '1.23'
+- '2.0'
 pcl:
 - 1.14.1
 pin_run_as_build:
