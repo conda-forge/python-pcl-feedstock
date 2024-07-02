@@ -26,7 +26,7 @@ source:
 
 build:
   script: {{ PYTHON }} -m pip install . -vv
-  number: 7
+  number: 8
   skip: True  # [win]
 
 requirements:
@@ -56,7 +56,6 @@ requirements:
     - nose
     - pcl
     - flann
-    - {{ pin_compatible('numpy') }}
 
 test:
   imports:
