@@ -17,7 +17,7 @@ cxx_compiler_version:
 flann:
 - 1.9.2
 libboost_devel:
-- '1.84'
+- '1.86'
 macos_machine:
 - arm64-apple-darwin20.0.0
 numpy:
@@ -25,8 +25,6 @@ numpy:
 pcl:
 - 1.14.1
 pin_run_as_build:
-  flann:
-    max_pin: x.x.x
   python:
     min_pin: x.x
     max_pin: x.x
