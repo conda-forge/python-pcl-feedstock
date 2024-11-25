@@ -48,6 +48,7 @@ requirements:
     - numpy
     - cython 0.29
     - pip
+    - setuptools
     - flann
     - libcxx  # [osx]
   run:
