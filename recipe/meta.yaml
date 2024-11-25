@@ -39,14 +39,14 @@ requirements:
     - pkgconfig
     - python                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-    - cython 0.29                            # [build_platform != target_platform]
+    - cython                                 # [build_platform != target_platform]
     - numpy                                  # [build_platform != target_platform]
   host:
     - libboost-devel
     - pcl
     - python
     - numpy
-    - cython 0.29
+    - cython
     - pip
     - setuptools
     - flann
