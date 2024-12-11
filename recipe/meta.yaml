@@ -43,6 +43,7 @@ requirements:
   host:
     - libboost-devel
     - pcl
+    - setuptools
     - python
     - numpy
     - cython 0.29
