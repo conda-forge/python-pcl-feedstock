@@ -1,12 +1,13 @@
-{% set name = "python-pcl" %}
-{% set version = "0.3.0rc1" %}
+context:
+  name: python-pcl
+  version: 0.3.0rc1
 
 package:
-  name: {{ name|lower }}
-  version: {{ version }}
+  name: ${{ name|lower }}
+  version: ${{ version }}
 
 source:
-  url: https://github.com/strawlab/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
+  url: https://github.com/strawlab/${{ name }}/archive/refs/tags/v${{ version }}.tar.gz
   sha256: 3871a8b77f389fbd1f99c5447e5174bf7bebc94e80cd7b2733ec15fc4fa55b10
   patches:
     - patches/0001-Mark-PCLBase-as-nogil-to-fix-compilation.patch
@@ -24,22 +25,25 @@ source:
     - patches/0013-add-conda-prefix.patch
     - patches/0014-fix-numpy2.patch
 
-
 build:
-  script: {{ PYTHON }} -m pip install . -vv
   number: 10
+  script: ${{ PYTHON }} -m pip install . -vv
 
 requirements:
   build:
-    - {{ compiler('cxx') }}
-    - {{ stdlib("c") }}
+    - ${{ compiler('cxx') }}
+    - ${{ stdlib("c") }}
     - cmake
     - make
     - pkgconfig
-    - python                                 # [build_platform != target_platform]
-    - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-    - cython 0.29                            # [build_platform != target_platform]
-    - numpy                                  # [build_platform != target_platform]
+    - if: build_platform != target_platform
+      then: python
+    - if: build_platform != target_platform
+      then: cross-python_${{ target_platform }}
+    - if: build_platform != target_platform
+      then: cython 0.29
+    - if: build_platform != target_platform
+      then: numpy
   host:
     - libboost-devel
     - pcl
@@ -49,7 +53,8 @@ requirements:
     - cython 0.29
     - pip
     - flann
-    - libcxx  # [osx]
+    - if: osx
+      then: libcxx
   run:
     - python
     - cython
@@ -58,19 +63,17 @@ requirements:
     - pcl
     - flann
 
-test:
-  imports:
-    - pcl
-  commands:
-    - pip check
-  requires:
-    - pip
+tests:
+  - python:
+      imports:
+        - pcl
+      pip_check: true
 
 about:
-  home: http://github.com/strawlab/python-pcl
   summary: Python bindings for the Point Cloud Library (PCL) using Cython.
   license: BSD-3-Clause
   license_file: LICENSE
+  homepage: http://github.com/strawlab/python-pcl
 
 extra:
   recipe-maintainers:
