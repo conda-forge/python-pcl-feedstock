@@ -44,6 +44,7 @@ requirements:
     - libboost-devel
     - pcl
     - python
+    - setuptools
     - numpy
     - cython 0.29
     - pip
