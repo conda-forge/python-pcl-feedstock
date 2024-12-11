@@ -1,8 +1,29 @@
 diff --git a/setup.py b/setup.py
-index 181adb4c..2e04f05e 100644
+index 181adb4c..1a28f775 100644
 --- a/setup.py
 +++ b/setup.py
-@@ -65,16 +65,7 @@ if platform.system() == "Windows":
+@@ -44,20 +44,6 @@ def pkgconfig(flag):
+     # decode() is required in Python 3. TODO how do know the encoding?
+     return stdout.decode().split()
+ 
+-def pkgconfig_win(flag, cut):
+-    # Equivalent in Python 2.7 (but not 2.6):
+-    # subprocess.check_output(['pkg-config', flag] + pcl_libs).split()
+-    p = subprocess.Popen(['.\\pkg-config\\pkg-config.exe', flag] +
+-                         pcl_libs, stdout=subprocess.PIPE)
+-    stdout, _ = p.communicate()
+-    # Assume no evil spaces in filenames; unsure how pkg-config would
+-    # handle those, anyway.
+-    # decode() is required in Python 3. TODO how do know the encoding?
+-    # return stdout.decode().split()
+-    # Windows
+-    # return stdout.decode().replace('\r\n', '').replace('\ ', ' ').replace('/', '\\').split(cut)
+-    return stdout.decode().replace('\r\n', '').replace('\ ', ' ').replace('/', '\\').split(cut)
+-
+ 
+ if platform.system() == "Windows":
+     # Check 32bit or 64bit
+@@ -65,16 +51,7 @@ if platform.system() == "Windows":
      # if is_64bits == True
      
      # environment Value
@@ -20,7 +41,7 @@ index 181adb4c..2e04f05e 100644
  
      # Add environment Value
      for k, v in os.environ.items():
-@@ -85,61 +76,11 @@ if platform.system() == "Windows":
+@@ -85,67 +62,17 @@ if platform.system() == "Windows":
      else:
          # print("cannot find environment PKG_CONFIG_PATH", file=sys.stderr)
          print("cannot find environment PKG_CONFIG_PATH")
@@ -84,7 +105,15 @@ index 181adb4c..2e04f05e 100644
      # custom(CUDA)
      # custom(WinPcap)
  
-@@ -155,7 +96,7 @@ if platform.system() == "Windows":
+     # get pkg-config.exe filePath
+-    pkgconfigPath = os.getcwd() + '\\pkg-config\\pkg-config.exe'
+-    print(pkgconfigPath)
++    pkgconfigPath = 'pkg-config'
++    print('pkgconfigPath:', pkgconfigPath)
+     
+     # AppVeyor Check
+     for k, v in os.environ.items():
+@@ -155,11 +82,10 @@ if platform.system() == "Windows":
              break
      else:
          # Try to find PCL. XXX we should only do this when trying to build or install.
@@ -92,8 +121,13 @@ index 181adb4c..2e04f05e 100644
 +        PCL_SUPPORTED = ["-1.12", "-1.11", "-1.10", "-1.9", "-1.8", "-1.7", "-1.6", ""]    # in order of preference
          
          for pcl_version in PCL_SUPPORTED:
-             if subprocess.call(['.\\pkg-config\\pkg-config.exe', 'pcl_common%s' % pcl_version]) == 0:
-@@ -173,56 +114,13 @@ if platform.system() == "Windows":
+-            if subprocess.call(['.\\pkg-config\\pkg-config.exe', 'pcl_common%s' % pcl_version]) == 0:
+-            # if subprocess.call([pkgconfigPath, 'pcl_common%s' % pcl_version]) == 0:
++            if subprocess.call([pkgconfigPath, 'pcl_common%s' % pcl_version]) == 0:
+                 break
+         else:
+             print("%s: error: cannot find PCL, tried" %
+@@ -173,56 +99,13 @@ if platform.system() == "Windows":
      
      # Python Version Check
      info = sys.version_info
@@ -157,9 +191,20 @@ index 181adb4c..2e04f05e 100644
      
      # Find build/link options for PCL using pkg-config.
      
-@@ -244,30 +142,7 @@ if platform.system() == "Windows":
-     #     ext_args['include_dirs'].append(flag.lstrip().rstrip())
+@@ -234,124 +117,22 @@ if platform.system() == "Windows":
+     # set include path
+     ext_args['include_dirs'].append(numpy.get_include())
      
+-    # Get setting pkg-config
+-    # add include headers
+-    # use pkg-config
+-    # print('test')
+-    # for flag in pkgconfig_win('--cflags-only-I', '-I'):
+-    #     print(flag.lstrip().rstrip())
+-    # print('test')
+-    #     ext_args['include_dirs'].append(flag.lstrip().rstrip())
+-    
++
      # no use pkg-config
 -    if pcl_version == '-1.6':
 -        # 1.6.0
@@ -189,8 +234,16 @@ index 181adb4c..2e04f05e 100644
      
      for inc_dir in inc_dirs:
          ext_args['include_dirs'].append(inc_dir)
-@@ -282,76 +157,13 @@ if platform.system() == "Windows":
-     # end
+-    
+-    # for flag in pkgconfig_win('--libs-only-L', '-L'):
+-    #     print(flag.lstrip().rstrip())
+-    #     ext_args['library_dirs'].append(flag[2:])
+-
+-    # for flag in pkgconfig_win('--libs-only-other', '-l'):
+-    #     print(flag.lstrip().rstrip())
+-    #     ext_args['extra_link_args'].append(flag)
+-    # end
++
      
      # set library path
 -    if pcl_version == '-1.6':
@@ -271,7 +324,7 @@ index 181adb4c..2e04f05e 100644
      
      for librelease in libreleases:
          ext_args['libraries'].append(librelease)
-@@ -366,81 +178,10 @@ if platform.system() == "Windows":
+@@ -366,81 +147,10 @@ if platform.system() == "Windows":
      for win_librelease in win_libreleases:
          ext_args['libraries'].append(win_librelease)
      
@@ -353,7 +406,7 @@ index 181adb4c..2e04f05e 100644
      # ext_args['define_macros'].append(('EIGEN_YES_I_KNOW_SPARSE_MODULE_IS_NOT_STABLE_YET', '1'))
      # define_macros=[('BOOST_NO_EXCEPTIONS', 'None')],
      # debugs = [('EIGEN_YES_I_KNOW_SPARSE_MODULE_IS_NOT_STABLE_YET', '1'), ('BOOST_NO_EXCEPTIONS', 'None')]
-@@ -485,33 +226,12 @@ if platform.system() == "Windows":
+@@ -485,33 +195,12 @@ if platform.system() == "Windows":
      
      print(ext_args)
  
