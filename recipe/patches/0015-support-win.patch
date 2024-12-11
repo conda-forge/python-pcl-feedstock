@@ -385,7 +385,7 @@ index 181adb4c..2e04f05e 100644
 -        print('no pcl install or pkg-config missed.')
 -        sys.exit(1)
 +    module = [Extension("pcl._pcl", ["pcl/_pcl_180.pyx", "pcl/minipcl.cpp", "pcl/ProjectInliers.cpp"], language="c++", **ext_args),
-+                    Extension("pcl.pcl_visualization", ["pcl/pcl_visualization.pyx"], language="c++", extra_compile_args=['-fno-strict-aliasing'], **ext_args),
++                    Extension("pcl.pcl_visualization", ["pcl/pcl_visualization.pyx"], language="c++", **ext_args),
 +                    # Extension("pcl.pcl_grabber", ["pcl/pcl_grabber.pyx", "pcl/grabber_callback.cpp"], language="c++", **ext_args),
 +                    # debug
 +                    # gdb_debug=True,
