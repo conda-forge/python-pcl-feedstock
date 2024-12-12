@@ -1,5 +1,5 @@
 diff --git a/setup.py b/setup.py
-index 181adb4c..1a28f775 100644
+index 181adb4c..cace618b 100644
 --- a/setup.py
 +++ b/setup.py
 @@ -44,20 +44,6 @@ def pkgconfig(flag):
@@ -23,7 +23,7 @@ index 181adb4c..1a28f775 100644
  
  if platform.system() == "Windows":
      # Check 32bit or 64bit
-@@ -65,16 +51,7 @@ if platform.system() == "Windows":
+@@ -65,293 +51,38 @@ if platform.system() == "Windows":
      # if is_64bits == True
      
      # environment Value
@@ -37,25 +37,25 @@ index 181adb4c..1a28f775 100644
 -    else:
 -        print("cannot find environment PCL_ROOT", file=sys.stderr)
 -        sys.exit(1)
-+    pcl_root = os.environ['PREFIX'] + '\\Library'
- 
-     # Add environment Value
-     for k, v in os.environ.items():
-@@ -85,67 +62,17 @@ if platform.system() == "Windows":
-     else:
-         # print("cannot find environment PKG_CONFIG_PATH", file=sys.stderr)
-         print("cannot find environment PKG_CONFIG_PATH")
+-
+-    # Add environment Value
+-    for k, v in os.environ.items():
+-        # print("{key} : {value}".format(key=k, value=v))
+-        if k == "PKG_CONFIG_PATH":
+-            pkgconfigstr = v
+-            break
+-    else:
+-        # print("cannot find environment PKG_CONFIG_PATH", file=sys.stderr)
+-        print("cannot find environment PKG_CONFIG_PATH")
 -        pkgconfigstr = pcl_root + '\\lib\\pkgconfig;' + pcl_root + \
 -            '\\3rdParty\\FLANN\\lib\\pkgconfig;' + \
 -            pcl_root + '\\3rdParty\\Eigen\\lib\\pkgconfig;'
 -        os.environ["PKG_CONFIG_PATH"] = pcl_root + '\\lib\\pkgconfig;' + pcl_root + \
 -            '\\3rdParty\\FLANN\\lib\\pkgconfig;' + \
 -            pcl_root + '\\3rdParty\\Eigen\\lib\\pkgconfig;'
-+        pkgconfigstr = pcl_root + '\\lib\\pkgconfig;'
-+        os.environ["PKG_CONFIG_PATH"] = pkgconfigstr
- 
-     print("set environment PKG_CONFIG_PATH=%s" % pkgconfigstr)
- 
+-
+-    print("set environment PKG_CONFIG_PATH=%s" % pkgconfigstr)
+-
 -    # other package(common)
 -    # BOOST_ROOT
 -    for k, v in os.environ.items():
@@ -101,36 +101,46 @@ index 181adb4c..1a28f775 100644
 -            break
 -    else:
 -        vtk_root = pcl_root + '\\3rdParty\\VTK'
--
-     # custom(CUDA)
-     # custom(WinPcap)
++    pcl_root = os.environ['PREFIX'] + '\\Library'
++    pcl_version = '-1.14'
  
-     # get pkg-config.exe filePath
+-    # custom(CUDA)
+-    # custom(WinPcap)
++    pcl_libs = ["2d", "common", "features", "filters", "geometry",
++            "io", "kdtree", "keypoints", "ml", "octree", "outofcore", "people",
++            "recognition", "registration", "sample_consensus", "search",
++            "segmentation", "stereo", "surface", "tracking", "visualization"]
+ 
+-    # get pkg-config.exe filePath
 -    pkgconfigPath = os.getcwd() + '\\pkg-config\\pkg-config.exe'
 -    print(pkgconfigPath)
-+    pkgconfigPath = 'pkg-config'
-+    print('pkgconfigPath:', pkgconfigPath)
-     
-     # AppVeyor Check
-     for k, v in os.environ.items():
-@@ -155,11 +82,10 @@ if platform.system() == "Windows":
-             break
-     else:
-         # Try to find PCL. XXX we should only do this when trying to build or install.
+-    
+-    # AppVeyor Check
+-    for k, v in os.environ.items():
+-        # print("{key} : {value}".format(key=k, value=v))
+-        if k == "PCL_VERSION":
+-            pcl_version = '-' + v
+-            break
+-    else:
+-        # Try to find PCL. XXX we should only do this when trying to build or install.
 -        PCL_SUPPORTED = ["-1.8", "-1.7", "-1.6", ""]    # in order of preference
-+        PCL_SUPPORTED = ["-1.12", "-1.11", "-1.10", "-1.9", "-1.8", "-1.7", "-1.6", ""]    # in order of preference
-         
-         for pcl_version in PCL_SUPPORTED:
+-        
+-        for pcl_version in PCL_SUPPORTED:
 -            if subprocess.call(['.\\pkg-config\\pkg-config.exe', 'pcl_common%s' % pcl_version]) == 0:
 -            # if subprocess.call([pkgconfigPath, 'pcl_common%s' % pcl_version]) == 0:
-+            if subprocess.call([pkgconfigPath, 'pcl_common%s' % pcl_version]) == 0:
-                 break
-         else:
-             print("%s: error: cannot find PCL, tried" %
-@@ -173,56 +99,13 @@ if platform.system() == "Windows":
-     
-     # Python Version Check
-     info = sys.version_info
+-                break
+-        else:
+-            print("%s: error: cannot find PCL, tried" %
+-                  sys.argv[0], file=sys.stderr)
+-            for version in PCL_SUPPORTED:
+-                print('    pkg-config pcl_common%s' % version, file=sys.stderr)
+-            sys.exit(1)
+-    
+-    print(pcl_version)
+-    # pcl_version = '-1.6'
+-    
+-    # Python Version Check
+-    info = sys.version_info
 -    
 -    if pcl_version == '-1.6':
 -        # PCL 1.6.0 python Version == 3.4(>= 3.4?, 2.7 -> NG)
@@ -181,20 +191,20 @@ index 181adb4c..1a28f775 100644
 -    else:
 -        print('pcl_version Unknown')
 -        sys.exit(1)
-+
-+    pcl_libs = ["2d", "common", "features", "filters", "geometry",
-+            "io", "kdtree", "keypoints", "ml", "octree", "outofcore", "people",
-+            "recognition", "registration", "sample_consensus", "search",
-+            "segmentation", "stereo", "surface", "tracking", "visualization"]
-+
 +    vtk_version = '9.3'
      
      # Find build/link options for PCL using pkg-config.
+-    
+-    pcl_libs = ["pcl_%s%s" % (lib, pcl_version) for lib in pcl_libs]
+-    # pcl_libs += ['Eigen3']
+-    # print(pcl_libs)
++
++    pcl_libs = ["pcl_%s" % lib for lib in pcl_libs]
      
-@@ -234,124 +117,22 @@ if platform.system() == "Windows":
+     ext_args = defaultdict(list)
      # set include path
-     ext_args['include_dirs'].append(numpy.get_include())
-     
+-    ext_args['include_dirs'].append(numpy.get_include())
+-    
 -    # Get setting pkg-config
 -    # add include headers
 -    # use pkg-config
@@ -204,6 +214,7 @@ index 181adb4c..1a28f775 100644
 -    # print('test')
 -    #     ext_args['include_dirs'].append(flag.lstrip().rstrip())
 -    
++    ext_args['include_dirs'].append(numpy.get_include())    
 +
      # no use pkg-config
 -    if pcl_version == '-1.6':
@@ -230,11 +241,12 @@ index 181adb4c..1a28f775 100644
 -        inc_dirs = [pcl_root + '\\include\\pcl' + pcl_version, pcl_root + '\\3rdParty\\\Eigen\\eigen3', pcl_root + '\\3rdParty\\Boost\\include\\boost-' + boost_version, pcl_root + '\\3rdParty\\FLANN\\include', pcl_root + '\\3rdParty\\VTK\\include\\vtk-' + vtk_version]
 -    else:
 -        inc_dirs = []
+-    
 +    inc_dirs = [pcl_root + '\\include\\pcl' + pcl_version]
-     
++
      for inc_dir in inc_dirs:
          ext_args['include_dirs'].append(inc_dir)
--    
+     
 -    # for flag in pkgconfig_win('--libs-only-L', '-L'):
 -    #     print(flag.lstrip().rstrip())
 -    #     ext_args['library_dirs'].append(flag[2:])
@@ -243,8 +255,7 @@ index 181adb4c..1a28f775 100644
 -    #     print(flag.lstrip().rstrip())
 -    #     ext_args['extra_link_args'].append(flag)
 -    # end
-+
-     
+-    
      # set library path
 -    if pcl_version == '-1.6':
 -        # 3rdParty(+Boost, +VTK)
@@ -324,7 +335,7 @@ index 181adb4c..1a28f775 100644
      
      for librelease in libreleases:
          ext_args['libraries'].append(librelease)
-@@ -366,81 +147,10 @@ if platform.system() == "Windows":
+@@ -366,81 +97,10 @@ if platform.system() == "Windows":
      for win_librelease in win_libreleases:
          ext_args['libraries'].append(win_librelease)
      
@@ -406,7 +417,7 @@ index 181adb4c..1a28f775 100644
      # ext_args['define_macros'].append(('EIGEN_YES_I_KNOW_SPARSE_MODULE_IS_NOT_STABLE_YET', '1'))
      # define_macros=[('BOOST_NO_EXCEPTIONS', 'None')],
      # debugs = [('EIGEN_YES_I_KNOW_SPARSE_MODULE_IS_NOT_STABLE_YET', '1'), ('BOOST_NO_EXCEPTIONS', 'None')]
-@@ -485,33 +195,12 @@ if platform.system() == "Windows":
+@@ -485,33 +145,12 @@ if platform.system() == "Windows":
      
      print(ext_args)
  
