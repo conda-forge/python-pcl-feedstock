@@ -23,12 +23,12 @@ source:
     - patches/0011-Support-PCL-1.13-and-later.patch
     - patches/0013-add-conda-prefix.patch
     - patches/0014-fix-numpy2.patch
+    - patches/0015-support-win.patch
 
 
 build:
   script: {{ PYTHON }} -m pip install . -vv
-  number: 9
-  skip: True  # [win]
+  number: 10
 
 requirements:
   build:
@@ -44,7 +44,9 @@ requirements:
   host:
     - libboost-devel
     - pcl
+    - vtk-base  # [win]
     - python
+    - setuptools
     - numpy
     - cython 0.29
     - pip
