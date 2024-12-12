@@ -1,5 +1,5 @@
 diff --git a/setup.py b/setup.py
-index 181adb4c..cace618b 100644
+index 181adb4c..418bba42 100644
 --- a/setup.py
 +++ b/setup.py
 @@ -44,20 +44,6 @@ def pkgconfig(flag):
@@ -23,7 +23,7 @@ index 181adb4c..cace618b 100644
  
  if platform.system() == "Windows":
      # Check 32bit or 64bit
-@@ -65,293 +51,38 @@ if platform.system() == "Windows":
+@@ -65,293 +51,36 @@ if platform.system() == "Windows":
      # if is_64bits == True
      
      # environment Value
@@ -37,7 +37,9 @@ index 181adb4c..cace618b 100644
 -    else:
 -        print("cannot find environment PCL_ROOT", file=sys.stderr)
 -        sys.exit(1)
--
++    conda_root = os.environ['PREFIX'] + '\\Library'
++    pcl_version = '-1.14'
+ 
 -    # Add environment Value
 -    for k, v in os.environ.items():
 -        # print("{key} : {value}".format(key=k, value=v))
@@ -55,7 +57,11 @@ index 181adb4c..cace618b 100644
 -            pcl_root + '\\3rdParty\\Eigen\\lib\\pkgconfig;'
 -
 -    print("set environment PKG_CONFIG_PATH=%s" % pkgconfigstr)
--
++    pcl_libs = ["2d", "common", "features", "filters", "geometry",
++            "io", "kdtree", "keypoints", "ml", "octree", "outofcore", "people",
++            "recognition", "registration", "sample_consensus", "search",
++            "segmentation", "stereo", "surface", "tracking", "visualization"]
+ 
 -    # other package(common)
 -    # BOOST_ROOT
 -    for k, v in os.environ.items():
@@ -101,16 +107,10 @@ index 181adb4c..cace618b 100644
 -            break
 -    else:
 -        vtk_root = pcl_root + '\\3rdParty\\VTK'
-+    pcl_root = os.environ['PREFIX'] + '\\Library'
-+    pcl_version = '-1.14'
- 
+-
 -    # custom(CUDA)
 -    # custom(WinPcap)
-+    pcl_libs = ["2d", "common", "features", "filters", "geometry",
-+            "io", "kdtree", "keypoints", "ml", "octree", "outofcore", "people",
-+            "recognition", "registration", "sample_consensus", "search",
-+            "segmentation", "stereo", "surface", "tracking", "visualization"]
- 
+-
 -    # get pkg-config.exe filePath
 -    pkgconfigPath = os.getcwd() + '\\pkg-config\\pkg-config.exe'
 -    print(pkgconfigPath)
@@ -214,9 +214,7 @@ index 181adb4c..cace618b 100644
 -    # print('test')
 -    #     ext_args['include_dirs'].append(flag.lstrip().rstrip())
 -    
-+    ext_args['include_dirs'].append(numpy.get_include())    
-+
-     # no use pkg-config
+-    # no use pkg-config
 -    if pcl_version == '-1.6':
 -        # 1.6.0
 -        # boost 1.5.5
@@ -242,7 +240,8 @@ index 181adb4c..cace618b 100644
 -    else:
 -        inc_dirs = []
 -    
-+    inc_dirs = [pcl_root + '\\include\\pcl' + pcl_version]
++    ext_args['include_dirs'].append(numpy.get_include())    
++    inc_dirs = [conda_root + '\\include\\pcl' + pcl_version, conda_root + '\\include\\eigen3', conda_root + '\\include\\boost', conda_root + '\\include\\flann', conda_root + '\\include\\vtk-' + vtk_version]
 +
      for inc_dir in inc_dirs:
          ext_args['include_dirs'].append(inc_dir)
@@ -272,7 +271,7 @@ index 181adb4c..cace618b 100644
 -    else:
 -        lib_dir = []
 -    
-+    lib_dirs = [pcl_root + '\\lib']
++    lib_dirs = [conda_root + '\\lib']
 +     
      for lib_dir in lib_dirs:
          ext_args['library_dirs'].append(lib_dir)
@@ -335,7 +334,7 @@ index 181adb4c..cace618b 100644
      
      for librelease in libreleases:
          ext_args['libraries'].append(librelease)
-@@ -366,81 +97,10 @@ if platform.system() == "Windows":
+@@ -366,81 +95,10 @@ if platform.system() == "Windows":
      for win_librelease in win_libreleases:
          ext_args['libraries'].append(win_librelease)
      
@@ -417,7 +416,7 @@ index 181adb4c..cace618b 100644
      # ext_args['define_macros'].append(('EIGEN_YES_I_KNOW_SPARSE_MODULE_IS_NOT_STABLE_YET', '1'))
      # define_macros=[('BOOST_NO_EXCEPTIONS', 'None')],
      # debugs = [('EIGEN_YES_I_KNOW_SPARSE_MODULE_IS_NOT_STABLE_YET', '1'), ('BOOST_NO_EXCEPTIONS', 'None')]
-@@ -485,33 +145,12 @@ if platform.system() == "Windows":
+@@ -485,33 +143,12 @@ if platform.system() == "Windows":
      
      print(ext_args)
  
