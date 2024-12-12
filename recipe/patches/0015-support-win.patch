@@ -1,5 +1,5 @@
 diff --git a/setup.py b/setup.py
-index 181adb4c..b22c48f3 100644
+index 181adb4c..b1778e21 100644
 --- a/setup.py
 +++ b/setup.py
 @@ -44,20 +44,6 @@ def pkgconfig(flag):
@@ -23,7 +23,7 @@ index 181adb4c..b22c48f3 100644
  
  if platform.system() == "Windows":
      # Check 32bit or 64bit
-@@ -65,293 +51,36 @@ if platform.system() == "Windows":
+@@ -65,299 +51,40 @@ if platform.system() == "Windows":
      # if is_64bits == True
      
      # environment Value
@@ -61,6 +61,7 @@ index 181adb4c..b22c48f3 100644
 +            "io", "kdtree", "keypoints", "ml", "octree", "outofcore", "people",
 +            "recognition", "registration", "sample_consensus", "search",
 +            "segmentation", "stereo", "surface", "tracking", "visualization"]
++    pcl_libs = ["pcl_%s" % lib for lib in pcl_libs]
  
 -    # other package(common)
 -    # BOOST_ROOT
@@ -193,13 +194,11 @@ index 181adb4c..b22c48f3 100644
 -        sys.exit(1)
 +    vtk_version = '9.3'
      
-     # Find build/link options for PCL using pkg-config.
+-    # Find build/link options for PCL using pkg-config.
 -    
 -    pcl_libs = ["pcl_%s%s" % (lib, pcl_version) for lib in pcl_libs]
 -    # pcl_libs += ['Eigen3']
 -    # print(pcl_libs)
-+
-+    pcl_libs = ["pcl_%s" % lib for lib in pcl_libs]
      
      ext_args = defaultdict(list)
      # set include path
@@ -334,7 +333,15 @@ index 181adb4c..b22c48f3 100644
      
      for librelease in libreleases:
          ext_args['libraries'].append(librelease)
-@@ -366,81 +95,10 @@ if platform.system() == "Windows":
+     
+-    # Note : 
+-    # vtk Version setting
++    for pcl_lib in pcl_libs:
++        ext_args['libraries'].append(pcl_lib)
+     
+     # use vtk need library(Windows base library)
+     # http://public.kitware.com/pipermail/vtkusers/2008-July/047291.html
+@@ -366,81 +93,10 @@ if platform.system() == "Windows":
      for win_librelease in win_libreleases:
          ext_args['libraries'].append(win_librelease)
      
@@ -416,7 +423,7 @@ index 181adb4c..b22c48f3 100644
      # ext_args['define_macros'].append(('EIGEN_YES_I_KNOW_SPARSE_MODULE_IS_NOT_STABLE_YET', '1'))
      # define_macros=[('BOOST_NO_EXCEPTIONS', 'None')],
      # debugs = [('EIGEN_YES_I_KNOW_SPARSE_MODULE_IS_NOT_STABLE_YET', '1'), ('BOOST_NO_EXCEPTIONS', 'None')]
-@@ -485,33 +143,12 @@ if platform.system() == "Windows":
+@@ -485,33 +141,12 @@ if platform.system() == "Windows":
      
      print(ext_args)
  
