@@ -44,6 +44,7 @@ requirements:
   host:
     - libboost-devel
     - pcl
+    - eigen
     - vtk-base  # [win]
     - python
     - setuptools
