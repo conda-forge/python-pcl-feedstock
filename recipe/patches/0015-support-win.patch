@@ -102,7 +102,7 @@ index 181adb4c..a07d6078 100644
 -    else:
 -        vtk_root = pcl_root + '\\3rdParty\\VTK'
 +    conda_root = os.environ['PREFIX'] + '\\Library'
-+    pcl_version = '-1.14'
++    pcl_version = '-1.15'
  
 -    # custom(CUDA)
 -    # custom(WinPcap)
