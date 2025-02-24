@@ -432,7 +432,7 @@ index 181adb4c..a07d6078 100644
 -    # ext_args['extra_compile_args'].append('/DDYNAMIC_MSVCRT_DLL=\"msvcr100.dll\"')
 -    # ext_args['extra_compile_args'].append('/DDYNAMIC_MSVCRT_DLL=\"msvcr100.dll\"')
 -    
-+
++    ext_args['extra_compile_args'].append('/std:c++17')
      # NG
      # ext_args['extra_compile_args'].append('/NODEFAULTLIB:msvcrtd')
      # https://blogs.msdn.microsoft.com/vcblog/2015/03/03/introducing-the-universal-crt/
