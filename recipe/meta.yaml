@@ -28,7 +28,7 @@ source:
 
 build:
   script: {{ PYTHON }} -m pip install . -vv
-  number: 11
+  number: 12
 
 requirements:
   build:
@@ -44,6 +44,7 @@ requirements:
   host:
     - libboost-devel
     - pcl
+    - eigen
     - vtk-base  # [win]
     - python
     - setuptools
