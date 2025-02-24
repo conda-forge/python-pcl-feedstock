@@ -448,7 +448,7 @@ index 181adb4c..a07d6078 100644
 -    # define_macros=[('EIGEN_YES_I_KNOW_SPARSE_MODULE_IS_NOT_STABLE_YET', '1')],
 -    # extra_compile_args=["/EHsc"],
 -    
-+        
++    ext_args['define_macros'].append(("EIGEN_MAX_ALIGN_BYTES", "32"))
      print(ext_args)
  
 -    if pcl_version == '-1.6':
