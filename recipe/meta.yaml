@@ -28,7 +28,7 @@ source:
 
 build:
   script: {{ PYTHON }} -m pip install . -vv
-  number: 12
+  number: 13
 
 requirements:
   build:
