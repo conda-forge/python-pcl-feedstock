@@ -115,7 +115,7 @@ index 181adb4c..a07d6078 100644
 -    # get pkg-config.exe filePath
 -    pkgconfigPath = os.getcwd() + '\\pkg-config\\pkg-config.exe'
 -    print(pkgconfigPath)
-+    vtk_version = '9.3'
++    vtk_version = '9.4'
      
 -    # AppVeyor Check
 -    for k, v in os.environ.items():
