@@ -29,6 +29,7 @@ source:
 build:
   script: {{ PYTHON }} -m pip install . -vv
   number: 15
+  skip: true # [py>312]
 
 requirements:
   build:
