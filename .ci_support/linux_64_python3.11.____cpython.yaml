@@ -21,7 +21,7 @@ libboost_devel:
 numpy:
 - '2'
 pcl:
-- 1.15.0
+- 1.15.1
 pin_run_as_build:
   python:
     min_pin: x.x
