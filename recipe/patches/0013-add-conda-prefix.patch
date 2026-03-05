@@ -29,7 +29,7 @@ index 2f16215..e298b29 100644
      # ext_args['include_dirs'].append('/usr/include/vtk')
      # ext_args['include_dirs'].append('/usr/local/include/vtk')
      # pcl 1.7(Ubuntu)
-+    ext_args['include_dirs'].append(os.environ['PREFIX'] + '/include/vtk-9.5')
++    ext_args['include_dirs'].append(os.environ['PREFIX'] + '/include/vtk-9.6')
 +    ext_args['include_dirs'].append(os.environ['PREFIX'] + '/include/eigen3')
 +    ext_args['include_dirs'].append(os.environ['PREFIX'] + '/include/boost')
      ext_args['include_dirs'].append('/usr/include/vtk-9.0')
