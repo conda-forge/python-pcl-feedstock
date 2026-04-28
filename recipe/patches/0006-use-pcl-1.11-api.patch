@@ -1153,8 +1153,8 @@ index d3f34f6..2737368 100644
  
      for pcl_version in PCL_SUPPORTED:
          if subprocess.call(['pkg-config', 'pcl_common%s' % pcl_version]) == 0:
-@@ -589,10 +589,6 @@ else:
-     ext_args['extra_link_args'].append('-lboost_system')
+@@ -589,10 +589,5 @@ else:
+-    ext_args['extra_link_args'].append('-lboost_system')
      # ext_args['extra_link_args'].append('-lboost_bind')
  
 -    # Fix compile error on Ubuntu 12.04 (e.g., Travis-CI).
