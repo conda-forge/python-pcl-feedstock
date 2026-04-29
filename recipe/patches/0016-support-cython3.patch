@@ -1,0 +1,872 @@
+diff --git a/pcl/pcl_common.pxd b/pcl/pcl_common.pxd
+index d6b343c..e9cb6ff 100644
+--- a/pcl/pcl_common.pxd
++++ b/pcl/pcl_common.pxd
+@@ -1,6 +1,5 @@
+ # -*- coding: utf-8 -*-
+ 
+-cimport _pcl
+ cimport pcl_defs as cpp
+ cimport numpy as cnp
+ 
+diff --git a/pcl/pcl_io.pxd b/pcl/pcl_io.pxd
+index 6266fe8..3efdfb0 100644
+--- a/pcl/pcl_io.pxd
++++ b/pcl/pcl_io.pxd
+@@ -11,77 +11,77 @@ cimport pcl_defs as cpp
+ 
+ cdef extern from "pcl/io/pcd_io.h" namespace "pcl::io":
+     # XYZ
+-    int load(string file_name, cpp.PointCloud[cpp.PointXYZ] &cloud) nogil except +
+-    int loadPCDFile(string file_name,
+-                    cpp.PointCloud[cpp.PointXYZ] &cloud) nogil except +
+-    int savePCDFile(string file_name, cpp.PointCloud[cpp.PointXYZ] &cloud,
+-                    bool binary_mode) nogil except +
+-    int savePCDFileASCII (string file_name, cpp.PointCloud[cpp.PointXYZ] &cloud) nogil except +
+-    int savePCDFileBinary (string &file_name, cpp.PointCloud[cpp.PointXYZ] &cloud) nogil except +
+-    int savePCDFile (string &file_name, 
++    int load(const string &file_name, cpp.PointCloud[cpp.PointXYZ] &cloud) except + nogil
++    int loadPCDFile(const string &file_name,
++                    cpp.PointCloud[cpp.PointXYZ] &cloud) except + nogil
++    int savePCDFile(const string &file_name, cpp.PointCloud[cpp.PointXYZ] &cloud,
++                    bool binary_mode) except + nogil
++    int savePCDFileASCII (const string &file_name, cpp.PointCloud[cpp.PointXYZ] &cloud) except + nogil
++    int savePCDFileBinary (const string &file_name, cpp.PointCloud[cpp.PointXYZ] &cloud) except + nogil
++    int savePCDFile (const string &file_name, 
+                      cpp.PointCloud[cpp.PointXYZ] &cloud,
+                      vector[int] &indices, 
+-                     bool binary_mode) nogil except +
++                     bool binary_mode) except + nogil
+ 
+ 
+     # XYZI
+-    int load(string file_name, cpp.PointCloud[cpp.PointXYZI] &cloud) nogil except +
+-    int loadPCDFile(string file_name,
+-                    cpp.PointCloud[cpp.PointXYZI] &cloud) nogil except +
+-    int savePCDFile(string file_name, cpp.PointCloud[cpp.PointXYZI] &cloud,
+-                    bool binary_mode) nogil except +
++    int load(const string &file_name, cpp.PointCloud[cpp.PointXYZI] &cloud) except + nogil
++    int loadPCDFile(const string &file_name,
++                    cpp.PointCloud[cpp.PointXYZI] &cloud) except + nogil
++    int savePCDFile(const string &file_name, cpp.PointCloud[cpp.PointXYZI] &cloud,
++                    bool binary_mode) except + nogil
+ 
+     # XYZRGB
+-    int load(string file_name, cpp.PointCloud[cpp.PointXYZRGB] &cloud) nogil except +
+-    int loadPCDFile(string file_name,
+-                    cpp.PointCloud[cpp.PointXYZRGB] &cloud) nogil except +
+-    int savePCDFile(string file_name, cpp.PointCloud[cpp.PointXYZRGB] &cloud,
+-                    bool binary_mode) nogil except +
++    int load(const string &file_name, cpp.PointCloud[cpp.PointXYZRGB] &cloud) except + nogil
++    int loadPCDFile(const string &file_name,
++                    cpp.PointCloud[cpp.PointXYZRGB] &cloud) except + nogil
++    int savePCDFile(const string &file_name, cpp.PointCloud[cpp.PointXYZRGB] &cloud,
++                    bool binary_mode) except + nogil
+ 
+     # XYZRGBA
+-    int load(string file_name, cpp.PointCloud[cpp.PointXYZRGBA] &cloud) nogil except +
+-    int loadPCDFile(string file_name,
+-                    cpp.PointCloud[cpp.PointXYZRGBA] &cloud) nogil except +
+-    int savePCDFile(string file_name, cpp.PointCloud[cpp.PointXYZRGBA] &cloud,
+-                    bool binary_mode) nogil except +
++    int load(const string &file_name, cpp.PointCloud[cpp.PointXYZRGBA] &cloud) except + nogil
++    int loadPCDFile(const string &file_name,
++                    cpp.PointCloud[cpp.PointXYZRGBA] &cloud) except + nogil
++    int savePCDFile(const string &file_name, cpp.PointCloud[cpp.PointXYZRGBA] &cloud,
++                    bool binary_mode) except + nogil
+ 
+ 	# PointWithViewpoint
+-    int load(string file_name, cpp.PointCloud[cpp.PointWithViewpoint] &cloud) nogil except +
+-    int loadPCDFile(string file_name,
+-                    cpp.PointCloud[cpp.PointWithViewpoint] &cloud) nogil except +
+-    int savePCDFile(string file_name, cpp.PointCloud[cpp.PointWithViewpoint] &cloud,
+-                    bool binary_mode) nogil except +
++    int load(const string &file_name, cpp.PointCloud[cpp.PointWithViewpoint] &cloud) except + nogil
++    int loadPCDFile(const string &file_name,
++                    cpp.PointCloud[cpp.PointWithViewpoint] &cloud) except + nogil
++    int savePCDFile(const string &file_name, cpp.PointCloud[cpp.PointWithViewpoint] &cloud,
++                    bool binary_mode) except + nogil
+ 
+ cdef extern from "pcl/io/ply_io.h" namespace "pcl::io":
+     # XYZ
+-    int loadPLYFile(string file_name,
+-                    cpp.PointCloud[cpp.PointXYZ] &cloud) nogil except +
+-    int savePLYFile(string file_name, cpp.PointCloud[cpp.PointXYZ] &cloud,
+-                    bool binary_mode) nogil except +
++    int loadPLYFile(const string &file_name,
++                    cpp.PointCloud[cpp.PointXYZ] &cloud) except + nogil
++    int savePLYFile(const string &file_name, cpp.PointCloud[cpp.PointXYZ] &cloud,
++                    bool binary_mode) except + nogil
+ 
+     # XYZI
+-    int loadPLYFile(string file_name,
+-                    cpp.PointCloud[cpp.PointXYZI] &cloud) nogil except +
+-    int savePLYFile(string file_name, cpp.PointCloud[cpp.PointXYZI] &cloud,
+-                    bool binary_mode) nogil except +
++    int loadPLYFile(const string &file_name,
++                    cpp.PointCloud[cpp.PointXYZI] &cloud) except + nogil
++    int savePLYFile(const string &file_name, cpp.PointCloud[cpp.PointXYZI] &cloud,
++                    bool binary_mode) except + nogil
+ 
+     # XYZRGB
+-    int loadPLYFile(string file_name,
+-                    cpp.PointCloud[cpp.PointXYZRGB] &cloud) nogil except +
+-    int savePLYFile(string file_name, cpp.PointCloud[cpp.PointXYZRGB] &cloud,
+-                    bool binary_mode) nogil except +
++    int loadPLYFile(const string &file_name,
++                    cpp.PointCloud[cpp.PointXYZRGB] &cloud) except + nogil
++    int savePLYFile(const string &file_name, cpp.PointCloud[cpp.PointXYZRGB] &cloud,
++                    bool binary_mode) except + nogil
+ 
+     # XYZRGBA
+-    int loadPLYFile(string file_name,
+-                    cpp.PointCloud[cpp.PointXYZRGBA] &cloud) nogil except +
+-    int savePLYFile(string file_name, cpp.PointCloud[cpp.PointXYZRGBA] &cloud,
+-                    bool binary_mode) nogil except +
++    int loadPLYFile(const string &file_name,
++                    cpp.PointCloud[cpp.PointXYZRGBA] &cloud) except + nogil
++    int savePLYFile(const string &file_name, cpp.PointCloud[cpp.PointXYZRGBA] &cloud,
++                    bool binary_mode) except + nogil
+ 
+     # PointWithViewpoint
+-    int loadPLYFile(string file_name,
+-                    cpp.PointCloud[cpp.PointWithViewpoint] &cloud) nogil except +
+-    int savePLYFile(string file_name, cpp.PointCloud[cpp.PointWithViewpoint] &cloud,
+-                    bool binary_mode) nogil except +
++    int loadPLYFile(const string &file_name,
++                    cpp.PointCloud[cpp.PointWithViewpoint] &cloud) except + nogil
++    int savePLYFile(const string &file_name, cpp.PointCloud[cpp.PointWithViewpoint] &cloud,
++                    bool binary_mode) except + nogil
+ 
+ #http://dev.pointclouds.org/issues/624
+ #cdef extern from "pcl/io/ply_io.h" namespace "pcl::io":
+@@ -2005,4 +2005,3 @@ cdef extern from "pcl/io/ply_io.h" namespace "pcl::io":
+ # 
+ # 
+ ###
+-
+diff --git a/pcl/pcl_io_180.pxd b/pcl/pcl_io_180.pxd
+index 6266fe8..3efdfb0 100644
+--- a/pcl/pcl_io_180.pxd
++++ b/pcl/pcl_io_180.pxd
+@@ -11,77 +11,77 @@ cimport pcl_defs as cpp
+ 
+ cdef extern from "pcl/io/pcd_io.h" namespace "pcl::io":
+     # XYZ
+-    int load(string file_name, cpp.PointCloud[cpp.PointXYZ] &cloud) nogil except +
+-    int loadPCDFile(string file_name,
+-                    cpp.PointCloud[cpp.PointXYZ] &cloud) nogil except +
+-    int savePCDFile(string file_name, cpp.PointCloud[cpp.PointXYZ] &cloud,
+-                    bool binary_mode) nogil except +
+-    int savePCDFileASCII (string file_name, cpp.PointCloud[cpp.PointXYZ] &cloud) nogil except +
+-    int savePCDFileBinary (string &file_name, cpp.PointCloud[cpp.PointXYZ] &cloud) nogil except +
+-    int savePCDFile (string &file_name, 
++    int load(const string &file_name, cpp.PointCloud[cpp.PointXYZ] &cloud) except + nogil
++    int loadPCDFile(const string &file_name,
++                    cpp.PointCloud[cpp.PointXYZ] &cloud) except + nogil
++    int savePCDFile(const string &file_name, cpp.PointCloud[cpp.PointXYZ] &cloud,
++                    bool binary_mode) except + nogil
++    int savePCDFileASCII (const string &file_name, cpp.PointCloud[cpp.PointXYZ] &cloud) except + nogil
++    int savePCDFileBinary (const string &file_name, cpp.PointCloud[cpp.PointXYZ] &cloud) except + nogil
++    int savePCDFile (const string &file_name, 
+                      cpp.PointCloud[cpp.PointXYZ] &cloud,
+                      vector[int] &indices, 
+-                     bool binary_mode) nogil except +
++                     bool binary_mode) except + nogil
+ 
+ 
+     # XYZI
+-    int load(string file_name, cpp.PointCloud[cpp.PointXYZI] &cloud) nogil except +
+-    int loadPCDFile(string file_name,
+-                    cpp.PointCloud[cpp.PointXYZI] &cloud) nogil except +
+-    int savePCDFile(string file_name, cpp.PointCloud[cpp.PointXYZI] &cloud,
+-                    bool binary_mode) nogil except +
++    int load(const string &file_name, cpp.PointCloud[cpp.PointXYZI] &cloud) except + nogil
++    int loadPCDFile(const string &file_name,
++                    cpp.PointCloud[cpp.PointXYZI] &cloud) except + nogil
++    int savePCDFile(const string &file_name, cpp.PointCloud[cpp.PointXYZI] &cloud,
++                    bool binary_mode) except + nogil
+ 
+     # XYZRGB
+-    int load(string file_name, cpp.PointCloud[cpp.PointXYZRGB] &cloud) nogil except +
+-    int loadPCDFile(string file_name,
+-                    cpp.PointCloud[cpp.PointXYZRGB] &cloud) nogil except +
+-    int savePCDFile(string file_name, cpp.PointCloud[cpp.PointXYZRGB] &cloud,
+-                    bool binary_mode) nogil except +
++    int load(const string &file_name, cpp.PointCloud[cpp.PointXYZRGB] &cloud) except + nogil
++    int loadPCDFile(const string &file_name,
++                    cpp.PointCloud[cpp.PointXYZRGB] &cloud) except + nogil
++    int savePCDFile(const string &file_name, cpp.PointCloud[cpp.PointXYZRGB] &cloud,
++                    bool binary_mode) except + nogil
+ 
+     # XYZRGBA
+-    int load(string file_name, cpp.PointCloud[cpp.PointXYZRGBA] &cloud) nogil except +
+-    int loadPCDFile(string file_name,
+-                    cpp.PointCloud[cpp.PointXYZRGBA] &cloud) nogil except +
+-    int savePCDFile(string file_name, cpp.PointCloud[cpp.PointXYZRGBA] &cloud,
+-                    bool binary_mode) nogil except +
++    int load(const string &file_name, cpp.PointCloud[cpp.PointXYZRGBA] &cloud) except + nogil
++    int loadPCDFile(const string &file_name,
++                    cpp.PointCloud[cpp.PointXYZRGBA] &cloud) except + nogil
++    int savePCDFile(const string &file_name, cpp.PointCloud[cpp.PointXYZRGBA] &cloud,
++                    bool binary_mode) except + nogil
+ 
+ 	# PointWithViewpoint
+-    int load(string file_name, cpp.PointCloud[cpp.PointWithViewpoint] &cloud) nogil except +
+-    int loadPCDFile(string file_name,
+-                    cpp.PointCloud[cpp.PointWithViewpoint] &cloud) nogil except +
+-    int savePCDFile(string file_name, cpp.PointCloud[cpp.PointWithViewpoint] &cloud,
+-                    bool binary_mode) nogil except +
++    int load(const string &file_name, cpp.PointCloud[cpp.PointWithViewpoint] &cloud) except + nogil
++    int loadPCDFile(const string &file_name,
++                    cpp.PointCloud[cpp.PointWithViewpoint] &cloud) except + nogil
++    int savePCDFile(const string &file_name, cpp.PointCloud[cpp.PointWithViewpoint] &cloud,
++                    bool binary_mode) except + nogil
+ 
+ cdef extern from "pcl/io/ply_io.h" namespace "pcl::io":
+     # XYZ
+-    int loadPLYFile(string file_name,
+-                    cpp.PointCloud[cpp.PointXYZ] &cloud) nogil except +
+-    int savePLYFile(string file_name, cpp.PointCloud[cpp.PointXYZ] &cloud,
+-                    bool binary_mode) nogil except +
++    int loadPLYFile(const string &file_name,
++                    cpp.PointCloud[cpp.PointXYZ] &cloud) except + nogil
++    int savePLYFile(const string &file_name, cpp.PointCloud[cpp.PointXYZ] &cloud,
++                    bool binary_mode) except + nogil
+ 
+     # XYZI
+-    int loadPLYFile(string file_name,
+-                    cpp.PointCloud[cpp.PointXYZI] &cloud) nogil except +
+-    int savePLYFile(string file_name, cpp.PointCloud[cpp.PointXYZI] &cloud,
+-                    bool binary_mode) nogil except +
++    int loadPLYFile(const string &file_name,
++                    cpp.PointCloud[cpp.PointXYZI] &cloud) except + nogil
++    int savePLYFile(const string &file_name, cpp.PointCloud[cpp.PointXYZI] &cloud,
++                    bool binary_mode) except + nogil
+ 
+     # XYZRGB
+-    int loadPLYFile(string file_name,
+-                    cpp.PointCloud[cpp.PointXYZRGB] &cloud) nogil except +
+-    int savePLYFile(string file_name, cpp.PointCloud[cpp.PointXYZRGB] &cloud,
+-                    bool binary_mode) nogil except +
++    int loadPLYFile(const string &file_name,
++                    cpp.PointCloud[cpp.PointXYZRGB] &cloud) except + nogil
++    int savePLYFile(const string &file_name, cpp.PointCloud[cpp.PointXYZRGB] &cloud,
++                    bool binary_mode) except + nogil
+ 
+     # XYZRGBA
+-    int loadPLYFile(string file_name,
+-                    cpp.PointCloud[cpp.PointXYZRGBA] &cloud) nogil except +
+-    int savePLYFile(string file_name, cpp.PointCloud[cpp.PointXYZRGBA] &cloud,
+-                    bool binary_mode) nogil except +
++    int loadPLYFile(const string &file_name,
++                    cpp.PointCloud[cpp.PointXYZRGBA] &cloud) except + nogil
++    int savePLYFile(const string &file_name, cpp.PointCloud[cpp.PointXYZRGBA] &cloud,
++                    bool binary_mode) except + nogil
+ 
+     # PointWithViewpoint
+-    int loadPLYFile(string file_name,
+-                    cpp.PointCloud[cpp.PointWithViewpoint] &cloud) nogil except +
+-    int savePLYFile(string file_name, cpp.PointCloud[cpp.PointWithViewpoint] &cloud,
+-                    bool binary_mode) nogil except +
++    int loadPLYFile(const string &file_name,
++                    cpp.PointCloud[cpp.PointWithViewpoint] &cloud) except + nogil
++    int savePLYFile(const string &file_name, cpp.PointCloud[cpp.PointWithViewpoint] &cloud,
++                    bool binary_mode) except + nogil
+ 
+ #http://dev.pointclouds.org/issues/624
+ #cdef extern from "pcl/io/ply_io.h" namespace "pcl::io":
+@@ -2005,4 +2005,3 @@ cdef extern from "pcl/io/ply_io.h" namespace "pcl::io":
+ # 
+ # 
+ ###
+-
+diff --git a/pcl/pcl_visualization_defs.pxd b/pcl/pcl_visualization_defs.pxd
+index f264817..ad00980 100644
+--- a/pcl/pcl_visualization_defs.pxd
++++ b/pcl/pcl_visualization_defs.pxd
+@@ -975,7 +975,7 @@ cdef extern from "pcl/visualization/pcl_visualizer.h" namespace "pcl::visualizat
+         # addPointCloudNormals (const typename pcl::PointCloud<PointT>::ConstPtr &cloud,
+         #                       const typename pcl::PointCloud<PointNT>::ConstPtr &normals,
+         #                       int level = 100, double scale = 0.02, const std::string &id = "cloud", int viewport = 0);
+-        bool addPointCloudNormals [PointT, PointNT] (const shared_ptr[cpp.PointCloud[PointT]] &cloud, const shared_ptr[cpp.PointCloud[PointNT]] &normals, int level, double scale, const string &id, int viewport)
++        bool addPointCloudNormals2 "addPointCloudNormals" [PointT, PointNT] (const shared_ptr[cpp.PointCloud[PointT]] &cloud, const shared_ptr[cpp.PointCloud[PointNT]] &normals, int level, double scale, const string &id, int viewport)
+         
+         ### addPointCloudPrincipalCurvatures function ###
+         ### PCL 1.6.0 NG (not define)
+diff --git a/pcl/pxi/Common/RangeImage/RangeImages_180.pxi b/pcl/pxi/Common/RangeImage/RangeImages_180.pxi
+index 10e8dec..704d1ad 100644
+--- a/pcl/pxi/Common/RangeImage/RangeImages_180.pxi
++++ b/pcl/pxi/Common/RangeImage/RangeImages_180.pxi
+@@ -1,6 +1,4 @@
+ # -*- coding: utf-8 -*-
+-from _pcl cimport PointCloud
+-from _pcl cimport PointCloud_PointWithViewpoint
+ cimport pcl_defs as cpp
+ cimport pcl_range_image_180 as pcl_r_img
+ 
+diff --git a/pcl/pxi/Features/IntegralImageNormalEstimation_180.pxi b/pcl/pxi/Features/IntegralImageNormalEstimation_180.pxi
+index 477b179..91f662a 100644
+--- a/pcl/pxi/Features/IntegralImageNormalEstimation_180.pxi
++++ b/pcl/pxi/Features/IntegralImageNormalEstimation_180.pxi
+@@ -1,5 +1,4 @@
+ # -*- coding: utf-8 -*-
+-cimport _pcl
+ from libcpp.vector cimport vector
+ from libcpp cimport bool
+ 
+@@ -22,7 +21,7 @@ cdef class IntegralImageNormalEstimation:
+     cdef pclftr.IntegralImageNormalEstimation_t *me
+ 
+ 
+-    def __cinit__(self, _pcl.PointCloud pc not None):
++    def __cinit__(self, PointCloud pc not None):
+         # self.thisptr_shared.reset(new pclftr.IntegralImageNormalEstimation[cpp.PointXYZ, cpp.Normal]())
+         # self.thisptr().setInputCloud(pc.thisptr_shared)
+         # NG : Reference Count 
+diff --git a/pcl/pxi/Features/NormalEstimation_180.pxi b/pcl/pxi/Features/NormalEstimation_180.pxi
+index 673a45a..9872077 100644
+--- a/pcl/pxi/Features/NormalEstimation_180.pxi
++++ b/pcl/pxi/Features/NormalEstimation_180.pxi
+@@ -1,5 +1,4 @@
+ # -*- coding: utf-8 -*-
+-cimport _pcl
+ from libcpp.vector cimport vector
+ from libcpp cimport bool
+ 
+@@ -20,7 +19,7 @@ cdef class NormalEstimation:
+     def __dealloc__(self):
+         del self.me
+ 
+-    def set_SearchMethod(self, _pcl.KdTree kdtree):
++    def set_SearchMethod(self, KdTree kdtree):
+         self.me.setSearchMethod(kdtree.thisptr_shared)
+ 
+     def set_RadiusSearch(self, double param):
+diff --git a/pcl/pxi/Features/VFHEstimation_180.pxi b/pcl/pxi/Features/VFHEstimation_180.pxi
+index 5bbaa91..5a663e6 100644
+--- a/pcl/pxi/Features/VFHEstimation_180.pxi
++++ b/pcl/pxi/Features/VFHEstimation_180.pxi
+@@ -1,5 +1,4 @@
+ # -*- coding: utf-8 -*-
+-cimport _pcl
+ from libcpp.vector cimport vector
+ from libcpp cimport bool
+ 
+@@ -19,7 +18,7 @@ cdef class VFHEstimation:
+     def __dealloc__(self):
+         del self.me
+ 
+-    def set_SearchMethod(self, _pcl.KdTree kdtree):
++    def set_SearchMethod(self, KdTree kdtree):
+         self.me.setSearchMethod(kdtree.thisptr_shared)
+ 
+     def set_KSearch (self, int param):
+diff --git a/pcl/pxi/PointCloud_Normal.pxi b/pcl/pxi/PointCloud_Normal.pxi
+index 2e71cca..c2434b7 100644
+--- a/pcl/pxi/PointCloud_Normal.pxi
++++ b/pcl/pxi/PointCloud_Normal.pxi
+@@ -7,7 +7,6 @@ cnp.import_array()
+ 
+ from libcpp cimport bool
+ cimport indexing as idx
+-from _pcl cimport PointCloud_Normal
+ 
+ cdef class PointCloud_Normal:
+     """
+diff --git a/pcl/pxi/PointCloud_PointNormal.pxi b/pcl/pxi/PointCloud_PointNormal.pxi
+index 5ee36b5..dc7fdc2 100644
+--- a/pcl/pxi/PointCloud_PointNormal.pxi
++++ b/pcl/pxi/PointCloud_PointNormal.pxi
+@@ -7,7 +7,6 @@ cnp.import_array()
+ 
+ from libcpp cimport bool
+ cimport indexing as idx
+-from _pcl cimport PointCloud_PointNormal
+ 
+ cdef class PointCloud_PointNormal:
+     """
+diff --git a/pcl/pxi/PointCloud_PointWithViewpoint.pxi b/pcl/pxi/PointCloud_PointWithViewpoint.pxi
+index d1e46f8..126c924 100644
+--- a/pcl/pxi/PointCloud_PointWithViewpoint.pxi
++++ b/pcl/pxi/PointCloud_PointWithViewpoint.pxi
+@@ -151,14 +151,18 @@ cdef class PointCloud_PointWithViewpoint:
+ 
+     def _from_pcd_file(self, const char *s):
+         cdef int error = 0
++        cdef string path = string(s)
++        cdef cpp.PointCloud[cpp.PointWithViewpoint] *cloud = self.thisptr()
+         with nogil:
+-            error = pclio.loadPCDFile(string(s), deref(self.thisptr()))
++            error = pclio.loadPCDFile(path, deref(cloud))
+         return error
+ 
+     def _from_ply_file(self, const char *s):
+         cdef int ok = 0
++        cdef string path = string(s)
++        cdef cpp.PointCloud[cpp.PointWithViewpoint] *cloud = self.thisptr()
+         with nogil:
+-            ok = pclio.loadPLYFile(string(s), deref(self.thisptr()))
++            ok = pclio.loadPLYFile(path, deref(cloud))
+         return ok
+ 
+     def to_file(self, const char *fname, bool ascii=True):
+@@ -169,4 +173,3 @@ cdef class PointCloud_PointWithViewpoint:
+         return self._to_pcd_file(fname, not ascii)
+ 
+ ###
+-
+diff --git a/pcl/pxi/PointCloud_PointXYZI_180.pxi b/pcl/pxi/PointCloud_PointXYZI_180.pxi
+index 628636d..b07e1a0 100644
+--- a/pcl/pxi/PointCloud_PointXYZI_180.pxi
++++ b/pcl/pxi/PointCloud_PointXYZI_180.pxi
+@@ -18,7 +18,6 @@ cimport pcl_surface_180 as pclsf
+ 
+ from libcpp cimport bool
+ cimport indexing as idx
+-from _pcl cimport PointCloud_PointXYZI
+ 
+ cdef extern from "minipcl.h":
+     void mpcl_compute_normals_PointXYZI(cpp.PointCloud_PointXYZI_t, int ksearch,
+@@ -222,18 +221,22 @@ cdef class PointCloud_PointXYZI:
+ 
+     def _from_pcd_file(self, const char *s):
+         cdef int error = 0
++        cdef string path = string(s)
++        cdef cpp.PointCloud[cpp.PointXYZI] *cloud = self.thisptr()
+         with nogil:
+             # NG
+             # error = pclio.loadPCDFile(string(s), <cpp.PointCloud[cpp.PointXYZI]> deref(self.thisptr()))
+-            error = pclio.loadPCDFile(string(s), deref(self.thisptr()))
++            error = pclio.loadPCDFile(path, deref(cloud))
+         return error
+ 
+     def _from_ply_file(self, const char *s):
+         cdef int ok = 0
++        cdef string path = string(s)
++        cdef cpp.PointCloud[cpp.PointXYZI] *cloud = self.thisptr()
+         with nogil:
+             # NG
+             # ok = pclio.loadPLYFile(string(s), <cpp.PointCloud[cpp.PointXYZI]> deref(self.thisptr()))
+-            ok = pclio.loadPLYFile(string(s), deref(self.thisptr()))
++            ok = pclio.loadPLYFile(path, deref(cloud))
+         return ok
+ 
+     def to_file(self, const char *fname, bool ascii=True):
+@@ -246,22 +249,24 @@ cdef class PointCloud_PointXYZI:
+     def _to_pcd_file(self, const char *f, bool binary=False):
+         cdef int error = 0
+         cdef string s = string(f)
++        cdef cpp.PointCloud[cpp.PointXYZI] *cloud = self.thisptr()
+         with nogil:
+             # NG
+             # error = pclio.savePCDFile(s, <cpp.PointCloud[cpp.PointXYZI]> deref(self.thisptr()), binary)
+             # OK
+-            error = pclio.savePCDFile(s, deref(self.thisptr()), binary)
+-            # pclio.PointCloud[cpp.PointXYZI] *p = self.thisptr()
+-            # error = pclio.savePCDFile(s, p, binary)
++            error = pclio.savePCDFile(s, deref(cloud), binary)
++        # pclio.PointCloud[cpp.PointXYZI] *p = self.thisptr()
++        # error = pclio.savePCDFile(s, p, binary)
+         return error
+ 
+     def _to_ply_file(self, const char *f, bool binary=False):
+         cdef int error = 0
+         cdef string s = string(f)
++        cdef cpp.PointCloud[cpp.PointXYZI] *cloud = self.thisptr()
+         with nogil:
+             # NG
+             # error = pclio.savePLYFile(s, <cpp.PointCloud[cpp.PointXYZI]> deref(self.thisptr()), binary)
+-            error = pclio.savePLYFile(s, deref(self.thisptr()), binary)
++            error = pclio.savePLYFile(s, deref(cloud), binary)
+         return error
+ 
+     def make_segmenter(self):
+@@ -374,4 +379,3 @@ cdef class PointCloud_PointXYZI:
+         
+         return result
+ ###
+-
+diff --git a/pcl/pxi/PointCloud_PointXYZRGBA_180.pxi b/pcl/pxi/PointCloud_PointXYZRGBA_180.pxi
+index 17edf4b..c077fd7 100644
+--- a/pcl/pxi/PointCloud_PointXYZRGBA_180.pxi
++++ b/pcl/pxi/PointCloud_PointXYZRGBA_180.pxi
+@@ -18,7 +18,6 @@ cimport pcl_surface_180 as pclsf
+ 
+ from libcpp cimport bool
+ cimport indexing as idx
+-from _pcl cimport PointCloud_PointXYZRGBA
+ 
+ cdef extern from "minipcl.h":
+     void mpcl_compute_normals_PointXYZRGBA(cpp.PointCloud_PointXYZRGBA_t, int ksearch,
+@@ -219,18 +218,22 @@ cdef class PointCloud_PointXYZRGBA:
+ 
+     def _from_pcd_file(self, const char *s):
+         cdef int error = 0
++        cdef string path = string(s)
++        cdef cpp.PointCloud[cpp.PointXYZRGBA] *cloud = self.thisptr()
+         with nogil:
+-            error = pclio.loadPCDFile(string(s), deref(self.thisptr()))
+-            # cpp.PointCloud[cpp.PointXYZRGBA] *p = self.thisptr()
+-            # error = cpp.loadPCDFile(string(s), p)
++            error = pclio.loadPCDFile(path, deref(cloud))
++        # cpp.PointCloud[cpp.PointXYZRGBA] *p = self.thisptr()
++        # error = cpp.loadPCDFile(string(s), p)
+         return error
+ 
+     def _from_ply_file(self, const char *s):
+         cdef int ok = 0
++        cdef string path = string(s)
++        cdef cpp.PointCloud[cpp.PointXYZRGBA] *cloud = self.thisptr()
+         with nogil:
+-            ok = pclio.loadPLYFile(string(s), deref(self.thisptr()))
+-            # cpp.PointCloud[cpp.PointXYZRGBA] *p = self.thisptr()
+-            # ok = cpp.loadPLYFile(string(s), p)
++            ok = pclio.loadPLYFile(path, deref(cloud))
++        # cpp.PointCloud[cpp.PointXYZRGBA] *p = self.thisptr()
++        # ok = cpp.loadPLYFile(string(s), p)
+         return ok
+ 
+     def to_file(self, const char *fname, bool ascii=True):
+@@ -243,19 +246,21 @@ cdef class PointCloud_PointXYZRGBA:
+     def _to_pcd_file(self, const char *f, bool binary=False):
+         cdef int error = 0
+         cdef string s = string(f)
++        cdef cpp.PointCloud[cpp.PointXYZRGBA] *cloud = self.thisptr()
+         with nogil:
+-            error = pclio.savePCDFile(s, deref(self.thisptr()), binary)
+-            # cpp.PointCloud[cpp.PointXYZRGBA] *
+-            # error = cpp.savePCDFile(s, p, binary)
++            error = pclio.savePCDFile(s, deref(cloud), binary)
++        # cpp.PointCloud[cpp.PointXYZRGBA] *
++        # error = cpp.savePCDFile(s, p, binary)
+         return error
+ 
+     def _to_ply_file(self, const char *f, bool binary=False):
+         cdef int error = 0
+         cdef string s = string(f)
++        cdef cpp.PointCloud[cpp.PointXYZRGBA] *cloud = self.thisptr()
+         with nogil:
+-            error = pclio.savePLYFile(s, deref(self.thisptr()), binary)
+-            # cpp.PointCloud[cpp.PointXYZRGBA] *p = self.thisptr()
+-            # error = cpp.savePLYFile(s, p, binary)
++            error = pclio.savePLYFile(s, deref(cloud), binary)
++        # cpp.PointCloud[cpp.PointXYZRGBA] *p = self.thisptr()
++        # error = cpp.savePLYFile(s, p, binary)
+         return error
+ 
+     def make_segmenter(self):
+diff --git a/pcl/pxi/PointCloud_PointXYZRGB_180.pxi b/pcl/pxi/PointCloud_PointXYZRGB_180.pxi
+index 6fe51de..5b75476 100644
+--- a/pcl/pxi/PointCloud_PointXYZRGB_180.pxi
++++ b/pcl/pxi/PointCloud_PointXYZRGB_180.pxi
+@@ -18,7 +18,6 @@ cimport pcl_surface_180 as pclsf
+ 
+ from libcpp cimport bool
+ cimport indexing as idx
+-from _pcl cimport PointCloud_PointXYZRGB
+ 
+ cdef extern from "minipcl.h":
+     void mpcl_compute_normals_PointXYZRGB(cpp.PointCloud_PointXYZRGB_t, int ksearch,
+@@ -219,18 +218,22 @@ cdef class PointCloud_PointXYZRGB:
+ 
+     def _from_pcd_file(self, const char *s):
+         cdef int error = 0
++        cdef string path = string(s)
++        cdef cpp.PointCloud[cpp.PointXYZRGB] *cloud = self.thisptr()
+         with nogil:
+-            error = pclio.loadPCDFile(string(s), deref(self.thisptr()))
+-            # cpp.PointCloud[cpp.PointXYZRGB] *p = self.thisptr()
+-            # error = cpp.loadPCDFile(string(s), p)
++            error = pclio.loadPCDFile(path, deref(cloud))
++        # cpp.PointCloud[cpp.PointXYZRGB] *p = self.thisptr()
++        # error = cpp.loadPCDFile(string(s), p)
+         return error
+ 
+     def _from_ply_file(self, const char *s):
+         cdef int ok = 0
++        cdef string path = string(s)
++        cdef cpp.PointCloud[cpp.PointXYZRGB] *cloud = self.thisptr()
+         with nogil:
+-            ok = pclio.loadPLYFile(string(s), deref(self.thisptr()))
+-            # cpp.PointCloud[cpp.PointXYZRGB] *p = self.thisptr()
+-            # ok = cpp.loadPLYFile(string(s), p)
++            ok = pclio.loadPLYFile(path, deref(cloud))
++        # cpp.PointCloud[cpp.PointXYZRGB] *p = self.thisptr()
++        # ok = cpp.loadPLYFile(string(s), p)
+         return ok
+ 
+     def to_file(self, const char *fname, bool ascii=True):
+@@ -243,19 +246,21 @@ cdef class PointCloud_PointXYZRGB:
+     def _to_pcd_file(self, const char *f, bool binary=False):
+         cdef int error = 0
+         cdef string s = string(f)
++        cdef cpp.PointCloud[cpp.PointXYZRGB] *cloud = self.thisptr()
+         with nogil:
+-            error = pclio.savePCDFile(s, deref(self.thisptr()), binary)
+-            # cpp.PointCloud[cpp.PointXYZRGB] *
+-            # error = cpp.savePCDFile(s, p, binary)
++            error = pclio.savePCDFile(s, deref(cloud), binary)
++        # cpp.PointCloud[cpp.PointXYZRGB] *
++        # error = cpp.savePCDFile(s, p, binary)
+         return error
+ 
+     def _to_ply_file(self, const char *f, bool binary=False):
+         cdef int error = 0
+         cdef string s = string(f)
++        cdef cpp.PointCloud[cpp.PointXYZRGB] *cloud = self.thisptr()
+         with nogil:
+-            error = pclio.savePLYFile(s, deref(self.thisptr()), binary)
+-            # cpp.PointCloud[cpp.PointXYZRGB] *p = self.thisptr()
+-            # error = cpp.savePLYFile(s, p, binary)
++            error = pclio.savePLYFile(s, deref(cloud), binary)
++        # cpp.PointCloud[cpp.PointXYZRGB] *p = self.thisptr()
++        # error = cpp.savePLYFile(s, p, binary)
+         return error
+ 
+     def make_segmenter(self):
+diff --git a/pcl/pxi/PointCloud_PointXYZ_180.pxi b/pcl/pxi/PointCloud_PointXYZ_180.pxi
+index d5073c1..d8bcd7a 100644
+--- a/pcl/pxi/PointCloud_PointXYZ_180.pxi
++++ b/pcl/pxi/PointCloud_PointXYZ_180.pxi
+@@ -231,18 +231,22 @@ cdef class PointCloud:
+ 
+     def _from_pcd_file(self, const char *s):
+         cdef int error = 0
++        cdef string path = string(s)
++        cdef cpp.PointCloud[cpp.PointXYZ] *cloud = self.thisptr()
+         with nogil:
+             # NG
+             # error = pclio.loadPCDFile(string(s), <cpp.PointCloud[cpp.PointXYZ]> deref(self.thisptr()))
+-            error = pclio.loadPCDFile(string(s), deref(self.thisptr()))
++            error = pclio.loadPCDFile(path, deref(cloud))
+         return error
+ 
+     def _from_ply_file(self, const char *s):
+         cdef int ok = 0
++        cdef string path = string(s)
++        cdef cpp.PointCloud[cpp.PointXYZ] *cloud = self.thisptr()
+         with nogil:
+             # NG
+             # ok = pclio.loadPLYFile(string(s), <cpp.PointCloud[cpp.PointXYZ]> deref(self.thisptr()))
+-            ok = pclio.loadPLYFile(string(s), deref(self.thisptr()))
++            ok = pclio.loadPLYFile(path, deref(cloud))
+         return ok
+ 
+     def to_file(self, const char *fname, bool ascii=True):
+@@ -255,22 +259,24 @@ cdef class PointCloud:
+     def _to_pcd_file(self, const char *f, bool binary=False):
+         cdef int error = 0
+         cdef string s = string(f)
++        cdef cpp.PointCloud[cpp.PointXYZ] *cloud = self.thisptr()
+         with nogil:
+             # NG
+             # error = pclio.savePCDFile(s, <cpp.PointCloud[cpp.PointXYZ]> deref(self.thisptr()), binary)
+             # OK
+-            error = pclio.savePCDFile(s, deref(self.thisptr()), binary)
+-            # pclio.PointCloud[cpp.PointXYZ] *p = self.thisptr()
+-            # error = pclio.savePCDFile(s, p, binary)
++            error = pclio.savePCDFile(s, deref(cloud), binary)
++        # pclio.PointCloud[cpp.PointXYZ] *p = self.thisptr()
++        # error = pclio.savePCDFile(s, p, binary)
+         return error
+ 
+     def _to_ply_file(self, const char *f, bool binary=False):
+         cdef int error = 0
+         cdef string s = string(f)
++        cdef cpp.PointCloud[cpp.PointXYZ] *cloud = self.thisptr()
+         with nogil:
+             # NG
+             # error = pclio.savePLYFile(s, <cpp.PointCloud[cpp.PointXYZ]> deref(self.thisptr()), binary)
+-            error = pclio.savePLYFile(s, deref(self.thisptr()), binary)
++            error = pclio.savePLYFile(s, deref(cloud), binary)
+         return error
+ 
+     def make_segmenter(self):
+@@ -566,4 +572,3 @@ cdef class PointCloud:
+     #     return euclideanclusterextraction
+ 
+ ###
+-
+diff --git a/pcl/pxi/Segmentation/EuclideanClusterExtraction_180.pxi b/pcl/pxi/Segmentation/EuclideanClusterExtraction_180.pxi
+index 10da30b..ba5efb3 100644
+--- a/pcl/pxi/Segmentation/EuclideanClusterExtraction_180.pxi
++++ b/pcl/pxi/Segmentation/EuclideanClusterExtraction_180.pxi
+@@ -1,5 +1,4 @@
+ # -*- coding: utf-8 -*-
+-cimport _pcl
+ cimport pcl_segmentation_180 as pclseg
+ cimport pcl_defs as cpp
+ from libcpp.vector cimport vector
+@@ -23,7 +22,7 @@ cdef class EuclideanClusterExtraction:
+     def set_MaxClusterSize(self, int max):
+         self.me.setMaxClusterSize(max)
+     
+-    def set_SearchMethod(self, _pcl.KdTree kdtree):
++    def set_SearchMethod(self, KdTree kdtree):
+         self.me.setSearchMethod(kdtree.thisptr_shared)
+     
+     # def set_Search_Method(self, _pcl.KdTreeFLANN kdtree):
+diff --git a/pcl/pxi/Surface/MovingLeastSquares_180.pxi b/pcl/pxi/Surface/MovingLeastSquares_180.pxi
+index 8e6125a..27eb7a7 100644
+--- a/pcl/pxi/Surface/MovingLeastSquares_180.pxi
++++ b/pcl/pxi/Surface/MovingLeastSquares_180.pxi
+@@ -1,5 +1,4 @@
+ # -*- coding: utf-8 -*-
+-cimport _pcl
+ cimport pcl_defs as cpp
+ cimport pcl_surface_180 as pclsf
+ cimport pcl_kdtree_180 as pclkdt
+@@ -39,7 +38,7 @@ cdef class MovingLeastSquares:
+     def set_Compute_Normals(self, bool flag):
+         self.me.setComputeNormals(flag)
+     
+-    def set_Search_Method(self, _pcl.KdTree kdtree):
++    def set_Search_Method(self, KdTree kdtree):
+        # self.me.setSearchMethod(kdtree.thisptr()[0])
+        # self.me.setSearchMethod(kdtree.thisptr())
+        self.me.setSearchMethod(kdtree.thisptr_shared)
+diff --git a/pcl/pxi/Visualization/PCLVisualizering.pxi b/pcl/pxi/Visualization/PCLVisualizering.pxi
+index f92465b..af10763 100644
+--- a/pcl/pxi/Visualization/PCLVisualizering.pxi
++++ b/pcl/pxi/Visualization/PCLVisualizering.pxi
+@@ -127,7 +127,7 @@ cdef class PCLVisualizering:
+         # self.thisptr().addPointCloud[cpp.PointXYZ](cloud.thisptr_shared, <const pclvis.PointCloudColorHandler[cpp.PointXYZ]> deref(color_handler.thisptr_shared.get()), id, viewport)
+         # OK? : Inheritance Class(PointCloudColorHandler)
+         # self.thisptr().addPointCloud[cpp.PointXYZ](cloud.thisptr_shared, <const pclvis.PointCloudColorHandlerCustom[cpp.PointXYZ]> deref(color_handler.thisptr_shared.get()), id, viewport)
+-        self.thisptr().addPointCloud[cpp.PointXYZ](cloud.thisptr_shared, <const pclvis.PointCloudColorHandlerCustom[cpp.PointXYZ]> deref(color_handler.thisptr_shared.get()), <string> id, viewport)
++        self.thisptr().addPointCloud_ColorHandler[cpp.PointXYZ](cloud.thisptr_shared, <const pclvis.PointCloudColorHandlerCustom[cpp.PointXYZ]> deref(color_handler.thisptr_shared.get()), <string> id, viewport)
+         pass
+ 
+     def AddPointCloud_ColorHandler(self, _pcl.RangeImages cloud, pcl_visualization.PointCloudColorHandleringCustom color_handler, id = b'cloud', int viewport = 0):
+@@ -141,7 +141,7 @@ cdef class PCLVisualizering:
+     #     # pass
+ 
+     def AddPointCloudNormals(self, _pcl.PointCloud cloud, _pcl.PointCloud_Normal normal, int level = 100, double scale = 0.02, id = b'cloud', int viewport = 0):
+-        self.thisptr().addPointCloudNormals[cpp.PointXYZ, cpp.Normal](<cpp.PointCloudPtr_t> cloud.thisptr_shared, <cpp.PointCloud_Normal_Ptr_t> normal.thisptr_shared, level, scale, <string> id, viewport)
++        self.thisptr().addPointCloudNormals2[cpp.PointXYZ, cpp.Normal](<cpp.PointCloudPtr_t> cloud.thisptr_shared, <cpp.PointCloud_Normal_Ptr_t> normal.thisptr_shared, level, scale, <string> id, viewport)
+ 
+     def SetPointCloudRenderingProperties(self, int propType, int propValue, propName = b'cloud'):
+         self.thisptr().setPointCloudRenderingProperties (propType, propValue, <string> propName, 0)
+diff --git a/pcl/pxi/registration/GeneralizedIterativeClosestPoint_180.pxi b/pcl/pxi/registration/GeneralizedIterativeClosestPoint_180.pxi
+index 918a130..57f22f0 100644
+--- a/pcl/pxi/registration/GeneralizedIterativeClosestPoint_180.pxi
++++ b/pcl/pxi/registration/GeneralizedIterativeClosestPoint_180.pxi
+@@ -1,6 +1,5 @@
+ import numpy as np
+ 
+-cimport _pcl
+ cimport pcl_defs as cpp
+ cimport pcl_registration_180 as pcl_reg
+ from libcpp.memory cimport shared_ptr
+@@ -21,7 +20,7 @@ cdef class GeneralizedIterativeClosestPoint:
+     def __dealloc__(self):
+         del self.me
+ 
+-    cdef object run(self, pcl_reg.Registration[cpp.PointXYZ, cpp.PointXYZ, float] &reg, _pcl.PointCloud source, _pcl.PointCloud target, max_iter=None):
++    cdef object run(self, pcl_reg.Registration[cpp.PointXYZ, cpp.PointXYZ, float] &reg, PointCloud source, PointCloud target, max_iter=None):
+         # 1.6.0 NG(No descrription)
+         # reg.setInputSource(source.thisptr_shared)
+         # PCLBase
+@@ -40,7 +39,7 @@ cdef class GeneralizedIterativeClosestPoint:
+         if max_iter is not None:
+             reg.setMaximumIterations(max_iter)
+         
+-        cdef _pcl.PointCloud result = _pcl.PointCloud()
++        cdef PointCloud result = PointCloud()
+         
+         with nogil:
+             reg.align(result.thisptr()[0])
+@@ -60,7 +59,7 @@ cdef class GeneralizedIterativeClosestPoint:
+         
+         return reg.hasConverged(), transf, result, reg.getFitnessScore()
+ 
+-    def gicp(self, _pcl.PointCloud source, _pcl.PointCloud target, max_iter=None):
++    def gicp(self, PointCloud source, PointCloud target, max_iter=None):
+         """
+         Align source to target using generalized iterative closest point (GICP).
+         
+diff --git a/pcl/pxi/registration/IterativeClosestPointNonLinear_180.pxi b/pcl/pxi/registration/IterativeClosestPointNonLinear_180.pxi
+index 7f21000..0ef7020 100644
+--- a/pcl/pxi/registration/IterativeClosestPointNonLinear_180.pxi
++++ b/pcl/pxi/registration/IterativeClosestPointNonLinear_180.pxi
+@@ -1,6 +1,5 @@
+ import numpy as np
+ 
+-cimport _pcl
+ cimport pcl_defs as cpp
+ cimport pcl_registration_180 as pcl_reg
+ from libcpp.memory cimport shared_ptr
+@@ -21,7 +20,7 @@ cdef class IterativeClosestPointNonLinear:
+     def __dealloc__(self):
+         del self.me
+ 
+-    cdef object run(self, pcl_reg.Registration[cpp.PointXYZ, cpp.PointXYZ, float] &reg, _pcl.PointCloud source, _pcl.PointCloud target, max_iter=None):
++    cdef object run(self, pcl_reg.Registration[cpp.PointXYZ, cpp.PointXYZ, float] &reg, PointCloud source, PointCloud target, max_iter=None):
+         # 1.6.0 NG(No descrription)
+         # reg.setInputSource(source.thisptr_shared)
+         # PCLBase
+@@ -40,7 +39,7 @@ cdef class IterativeClosestPointNonLinear:
+         if max_iter is not None:
+             reg.setMaximumIterations(max_iter)
+         
+-        cdef _pcl.PointCloud result = _pcl.PointCloud()
++        cdef PointCloud result = PointCloud()
+         
+         with nogil:
+             reg.align(result.thisptr()[0])
+@@ -60,7 +59,7 @@ cdef class IterativeClosestPointNonLinear:
+         
+         return reg.hasConverged(), transf, result, reg.getFitnessScore()
+ 
+-    def icp_nl(self, _pcl.PointCloud source, _pcl.PointCloud target, max_iter=None):
++    def icp_nl(self, PointCloud source, PointCloud target, max_iter=None):
+         """
+         Align source to target using generalized non-linear ICP (ICP-NL).
+         
+diff --git a/pcl/pxi/registration/IterativeClosestPoint_180.pxi b/pcl/pxi/registration/IterativeClosestPoint_180.pxi
+index 535dec2..b5e38d7 100644
+--- a/pcl/pxi/registration/IterativeClosestPoint_180.pxi
++++ b/pcl/pxi/registration/IterativeClosestPoint_180.pxi
+@@ -4,7 +4,6 @@ from libcpp cimport bool
+ cimport numpy as np
+ import numpy as np
+ 
+-cimport _pcl
+ cimport pcl_defs as cpp
+ cimport pcl_registration_180 as pcl_reg
+ from libcpp.memory cimport shared_ptr
+@@ -26,7 +25,7 @@ cdef class IterativeClosestPoint:
+         del self.me
+ 
+     # def set_InputTarget(self, pcl_reg.Registration[cpp.PointXYZ, cpp.PointXYZ] &reg):
+-    def set_InputTarget(self, _pcl.PointCloud cloud):
++    def set_InputTarget(self, PointCloud cloud):
+         self.me.setInputTarget (cloud.thisptr_shared)
+         pass
+ 
+@@ -51,13 +50,13 @@ cdef class IterativeClosestPoint:
+     # def get_FinalNumIteration(self):
+     #     return self.me.getFinalNumIteration()
+ 
+-    cdef object run(self, pcl_reg.Registration[cpp.PointXYZ, cpp.PointXYZ, float] &reg, _pcl.PointCloud source, _pcl.PointCloud target, max_iter=None):
++    cdef object run(self, pcl_reg.Registration[cpp.PointXYZ, cpp.PointXYZ, float] &reg, PointCloud source, PointCloud target, max_iter=None):
+         reg.setInputTarget(target.thisptr_shared)
+         
+         if max_iter is not None:
+             reg.setMaximumIterations(max_iter)
+         
+-        cdef _pcl.PointCloud result = _pcl.PointCloud()
++        cdef PointCloud result = PointCloud()
+         
+         with nogil:
+             reg.align(result.thisptr()[0])
+@@ -77,7 +76,7 @@ cdef class IterativeClosestPoint:
+         
+         return reg.hasConverged(), transf, result, reg.getFitnessScore()
+ 
+-    def icp(self, _pcl.PointCloud source, _pcl.PointCloud target, max_iter=None):
++    def icp(self, PointCloud source, PointCloud target, max_iter=None):
+         """
+         Align source to target using iterative closest point (ICP).
+         Parameters
