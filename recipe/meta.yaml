@@ -29,7 +29,7 @@ source:
 
 build:
   script: {{ PYTHON }} -m pip install . -vv
-  number: 22
+  number: 23
 
 requirements:
   build:
