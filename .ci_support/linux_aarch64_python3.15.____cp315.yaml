@@ -1,11 +1,19 @@
+DOCKER_PLATFORM:
+- linux/aarch64
 c_stdlib:
-- vs
+- sysroot
+c_stdlib_version:
+- '2.17'
 channel_sources:
 - conda-forge
 channel_targets:
 - conda-forge main
 cxx_compiler:
-- vs2022
+- gxx
+cxx_compiler_version:
+- '15'
+docker_image:
+- quay.io/condaforge/linux-anvil-aarch64:alma10
 flann:
 - 1.9.2
 libboost_devel:
@@ -19,8 +27,6 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.10.* *_cpython
+- 3.15.* *_cp315
 target_platform:
-- win-64
-vtk_base:
-- 9.7.0
+- linux-aarch64
